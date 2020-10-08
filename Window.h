@@ -49,6 +49,8 @@ namespace Bear
 		typedef void(*OnKeyClick)(const char key);
 		typedef void(*OnMove)(const WindowVector position);
 		typedef void(*OnResize)(const WindowVector size, const WindowState state);
+		typedef void(*OnClose)();
+		typedef void(*OnDestroy)();
 	public:
 		OnMouseMove OnMouseMoveCallback;
 		OnMouseClick OnMouseClickCallback;
@@ -56,6 +58,8 @@ namespace Bear
 		OnKeyClick OnKeyClickCallback;
 		OnMove OnMoveCallback;
 		OnResize OnResizeCallback;
+		OnClose OnCloseCallback;
+		OnDestroy OnDestroyCallback;
 	public:
 #ifdef BEAR_WINDOW_FOR_WINDOWS
 		const HWND GetAttachment() const;
