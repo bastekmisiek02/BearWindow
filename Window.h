@@ -42,6 +42,11 @@ namespace Bear
 		{
 			Restored = 0, Minimized = 1, Maximized = 2
 		};
+
+		enum class PointerType
+		{
+			Arrow = 32512, Crosshair = 32515, Hand = 32649, Help = 32651, IBeam = 32513, Blocked = 32648, Move = 32646, SizeNESW = 32643, SizeNS = 32645, SizeNWSE = 32642, SizeWE = 32644, UpArrow = 32516, Wait = 32514
+		};
 	public:
 		typedef void(*OnMouseMove)(const WindowVector mousePosition);
 		typedef void(*OnMouseClick)(const MouseButton mouseButton, const WindowVector mousePosition, const bool controlClicked, const bool shiftClicked);
@@ -80,6 +85,6 @@ namespace Bear
 		#endif
 		void Update(void(*)()) const;
 	public:
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position = { 0, 0 }, const wchar_t* Title = L"Bear Window", void(*OnCreate)() = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position = { 0, 0 }, const wchar_t* Title = L"Bear Window", const PointerType& PointerType = PointerType::Arrow, void(*OnCreate)() = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr);
 	};
 }
