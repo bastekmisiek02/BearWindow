@@ -68,6 +68,7 @@ namespace Bear
 	public:
 #ifdef BEAR_WINDOW_FOR_WINDOWS
 		const HWND GetAttachment() const;
+		const HINSTANCE GetInstance() const;
 #endif
 		const wchar_t* GetTitle() const;
 		void SetTitle(const wchar_t* NewTitle);
