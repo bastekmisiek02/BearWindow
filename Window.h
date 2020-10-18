@@ -86,6 +86,6 @@ namespace Bear
 		#endif
 		void Update(void(*)()) const;
 	public:
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position = { 0, 0 }, const wchar_t* Title = L"Bear Window", const PointerType& PointerType = PointerType::Arrow, void(*OnCreate)() = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position = { 0, 0 }, const wchar_t* Title = L"Bear Window", const PointerType& PointerType = PointerType::Arrow, const wchar_t* PointerFileName= nullptr, void(*OnCreate)() = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr);
 	};
 }
