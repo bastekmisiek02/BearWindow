@@ -86,6 +86,13 @@ namespace Bear
 		#endif
 		void Update(void(*)()) const;
 	public:
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position = { 0, 0 }, const wchar_t* Title = L"Bear Window", const PointerType& PointerType = PointerType::Arrow, const wchar_t* PointerFileName= nullptr, void(*OnCreate)() = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName);
+		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName);
 	};
 }
