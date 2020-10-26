@@ -82,7 +82,7 @@ namespace Bear
 			void SetPosition(const WindowVector& NewPosition);
 		public:
 			#ifdef BEAR_LIST_HAS_ADDED
-			void Update(void(*Update)(const Bear::List<void*>& params), const Bear::List<void*>& params) const;
+			void Update(void(*Update)(const Bear::List::List<void*>& params), const Bear::List::List<void*>& params) const;
 			#else
 			void Update(void(*Update)(const std::vector<void*>& params), const std::vector<void*>& params) const;
 			#endif
