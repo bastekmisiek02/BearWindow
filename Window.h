@@ -6,12 +6,7 @@
 	#error "Bear Window haven't support Linux yet"
 #endif
 
-#if __has_include(<BearList/List.h>)
-	#include <BearList/List.h>
-	#define  BEAR_LIST_HAS_ADDED
-#elif
-	#include <vector>
-#endif
+#include <BearList/List.h>
 
 namespace Bear
 {
@@ -81,11 +76,7 @@ namespace Bear
 			const WindowVector GetPosition() const;
 			void SetPosition(const WindowVector& NewPosition);
 		public:
-			#ifdef BEAR_LIST_HAS_ADDED
 			void Update(void(*Update)(const Bear::List::List<void*>& params), const Bear::List::List<void*>& params) const;
-			#else
-			void Update(void(*Update)(const std::vector<void*>& params), const std::vector<void*>& params) const;
-			#endif
 			void Update(void(*)()) const;
 			void Update() const;
 		public:
