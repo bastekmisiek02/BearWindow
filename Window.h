@@ -43,14 +43,14 @@ namespace Bear
 			WindowVector(const int& x, const int& y);
 		};
 	public:
-		typedef void(*OnMouseMove)(const WindowVector mousePosition);
-		typedef void(*OnMouseClick)(const MouseButton mouseButton, const WindowVector mousePosition, const bool controlClicked, const bool shiftClicked);
-		typedef void(*OnMouseScroll)(const bool offset);
-		typedef void(*OnKeyClick)(const char key);
-		typedef void(*OnMove)(const WindowVector position);
-		typedef void(*OnResize)(const WindowVector size, const WindowState state);
-		typedef void(*OnClose)();
-		typedef void(*OnDestroy)();
+		typedef void(*OnMouseMove)(const Window* window, const WindowVector mousePosition);
+		typedef void(*OnMouseClick)(const Window* window, const MouseButton mouseButton, const WindowVector mousePosition, const bool controlClicked, const bool shiftClicked);
+		typedef void(*OnMouseScroll)(const Window* window, const bool offset);
+		typedef void(*OnKeyClick)(const Window* window, const char key);
+		typedef void(*OnMove)(const Window* window, const WindowVector position);
+		typedef void(*OnResize)(const Window* window, const WindowVector size, const WindowState state);
+		typedef void(*OnClose)(const Window* window);
+		typedef void(*OnDestroy)(const Window* window);
 	public:
 		OnMouseMove OnMouseMoveCallback;
 		OnMouseClick OnMouseClickCallback;
