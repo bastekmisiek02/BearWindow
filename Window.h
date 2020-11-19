@@ -14,11 +14,10 @@ namespace Bear
 	{
 	private:
 		#ifdef BEAR_WINDOW_FOR_WINDOWS
-		HWND attachment;
+			HWND attachment;
 		#endif
+
 		wchar_t* title;
-	public:
-		~Window();
 	public:
 		enum class MouseButton
 		{
@@ -35,6 +34,8 @@ namespace Bear
 			Arrow = 32512, Crosshair = 32515, Hand = 32649, Help = 32651, IBeam = 32513, Blocked = 32648, Move = 32646, SizeNESW = 32643, SizeNS = 32645, SizeNWSE = 32642, SizeWE = 32644, UpArrow = 32516, Wait = 32514
 		};
 	public:
+		~Window();
+	public:
 		struct WindowVector
 		{
 			int x, y;
@@ -43,6 +44,7 @@ namespace Bear
 			WindowVector(const int& x, const int& y);
 		};
 	public:
+		typedef void(*OnUpdate)(const Window* window);
 		typedef void(*OnMouseMove)(const Window* window, const WindowVector mousePosition);
 		typedef void(*OnMouseClick)(const Window* window, const MouseButton mouseButton, const WindowVector mousePosition, const bool controlClicked, const bool shiftClicked);
 		typedef void(*OnMouseScroll)(const Window* window, const bool offset);
@@ -52,6 +54,7 @@ namespace Bear
 		typedef void(*OnClose)(const Window* window);
 		typedef void(*OnDestroy)(const Window* window);
 	public:
+		OnUpdate OnUpdateCallback;
 		OnMouseMove OnMouseMoveCallback;
 		OnMouseClick OnMouseClickCallback;
 		OnMouseScroll OnMouseScrollCallback;
@@ -62,9 +65,10 @@ namespace Bear
 		OnDestroy OnDestroyCallback;
 	public:
 		#ifdef BEAR_WINDOW_FOR_WINDOWS
-		const HWND GetAttachment() const;
-		const HINSTANCE GetInstance() const;
+			const HWND GetAttachment() const;
+			const HINSTANCE GetInstance() const;
 		#endif
+
 		const wchar_t* GetTitle() const;
 		void SetTitle(const wchar_t* NewTitle);
 
@@ -74,8 +78,6 @@ namespace Bear
 		const WindowVector GetPosition() const;
 		void SetPosition(const WindowVector& NewPosition);
 	public:
-		void Update(void(*)(const Window* window, const Bear::List<void*>& params), const Bear::List<void*>& params) const;
-		void Update(void(*)(const Window* window)) const;
 		void Update() const;
 	public:
 		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position);
