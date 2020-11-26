@@ -6,8 +6,6 @@
 	#error "Bear Window haven't support Linux yet"
 #endif
 
-#include <BearList/List.h>
-
 namespace Bear
 {
 	class Window
@@ -36,21 +34,21 @@ namespace Bear
 	public:
 		~Window();
 	public:
-		struct WindowVector
+		struct Vector
 		{
 			int x, y;
 
-			WindowVector();
-			WindowVector(const int& x, const int& y);
+			Vector();
+			Vector(const int& x, const int& y);
 		};
 	public:
 		typedef void(*OnUpdate)(const Window* window);
-		typedef void(*OnMouseMove)(const Window* window, const WindowVector mousePosition);
-		typedef void(*OnMouseClick)(const Window* window, const MouseButton mouseButton, const WindowVector mousePosition, const bool controlClicked, const bool shiftClicked);
+		typedef void(*OnMouseMove)(const Window* window, const Vector mousePosition);
+		typedef void(*OnMouseClick)(const Window* window, const MouseButton mouseButton, const Vector mousePosition, const bool controlClicked, const bool shiftClicked);
 		typedef void(*OnMouseScroll)(const Window* window, const bool offset);
 		typedef void(*OnKeyClick)(const Window* window, const char key);
-		typedef void(*OnMove)(const Window* window, const WindowVector position);
-		typedef void(*OnResize)(const Window* window, const WindowVector size, const WindowState state);
+		typedef void(*OnMove)(const Window* window, const Vector position);
+		typedef void(*OnResize)(const Window* window, const Vector size, const WindowState state);
 		typedef void(*OnClose)(const Window* window);
 		typedef void(*OnDestroy)(const Window* window);
 	public:
@@ -72,25 +70,25 @@ namespace Bear
 		const wchar_t* GetTitle() const;
 		void SetTitle(const wchar_t* NewTitle);
 
-		const WindowVector GetSize() const;
-		void SetSize(const WindowVector& NewSize);
+		const Vector GetSize() const;
+		void SetSize(const Vector& NewSize);
 
-		const WindowVector GetPosition() const;
-		void SetPosition(const WindowVector& NewPosition);
+		const Vector GetPosition() const;
+		void SetPosition(const Vector& NewPosition);
 	public:
 		void Update() const;
 	public:
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
-		static Window* CreateBearWindow(const WindowVector& Size, const WindowVector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
 	};
 }
