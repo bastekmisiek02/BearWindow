@@ -15,16 +15,16 @@ namespace Bear
 			HWND attachment;
 		#endif
 
-		wchar_t* title;
+		const wchar_t* title;
 	public:
 		enum class MouseButton
 		{
 			Left = 1, Right = 2, Middle = 16
 		};
 
-		enum class WindowState
+		enum class State
 		{
-			Restored = 0, Minimized = 1, Maximized = 2
+			Restored = 1, Minimized = 2, Maximized = 3, FullScreen = 4
 		};
 
 		enum class PointerType
@@ -48,7 +48,7 @@ namespace Bear
 		typedef void(*OnMouseScroll)(const Window* window, const bool offset);
 		typedef void(*OnKeyClick)(const Window* window, const char key);
 		typedef void(*OnMove)(const Window* window, const Vector position);
-		typedef void(*OnResize)(const Window* window, const Vector size, const WindowState state);
+		typedef void(*OnResize)(const Window* window, const Vector size, const State state);
 		typedef void(*OnClose)(const Window* window);
 		typedef void(*OnDestroy)(const Window* window);
 	public:
@@ -75,6 +75,9 @@ namespace Bear
 
 		const Vector GetPosition() const;
 		void SetPosition(const Vector& NewPosition);
+
+		const State GetState() const;
+		void SetState(const State& NewState);
 	public:
 		void Update() const;
 	public:
@@ -90,5 +93,7 @@ namespace Bear
 		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
 		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
 		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
+		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
 	};
 }
