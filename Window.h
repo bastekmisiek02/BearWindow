@@ -32,8 +32,6 @@ namespace Bear
 			Arrow = 32512, Crosshair = 32515, Hand = 32649, Help = 32651, IBeam = 32513, Blocked = 32648, Move = 32646, SizeNESW = 32643, SizeNS = 32645, SizeNWSE = 32642, SizeWE = 32644, UpArrow = 32516, Wait = 32514
 		};
 	public:
-		~Window();
-	public:
 		struct Vector
 		{
 			int x, y;
@@ -41,6 +39,10 @@ namespace Bear
 			Vector();
 			Vector(const int& x, const int& y);
 		};
+	public:
+		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
+		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
+		~Window();
 	public:
 		typedef void(*OnUpdate)(const Window* window);
 		typedef void(*OnMouseMove)(const Window* window, const Vector mousePosition);
@@ -80,20 +82,5 @@ namespace Bear
 		void SetState(const State& NewState);
 	public:
 		void Update() const;
-	public:
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
-		static Window* CreateBearWindow(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState);
 	};
 }
