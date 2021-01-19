@@ -127,7 +127,11 @@ namespace Bear
 
 		enum class MouseButton
 		{
-			Left = 1, Right = 2, Middle = 16
+			Left = 1, 
+			Right = 2, 
+			Middle = 16, 
+			XButton1 = 32, 
+			XButton2 = 64
 		};
 
 		enum class State
