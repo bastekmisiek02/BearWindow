@@ -201,5 +201,7 @@ namespace Bear
 		void SetState(const State& NewState);
 	public:
 		void Update() const;
+	public:
+		static const Vector GetMonitorResolution();
 	};
 }
