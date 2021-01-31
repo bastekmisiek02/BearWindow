@@ -1,10 +1,19 @@
 #include "BearWindow/Window.h"
 
-#include <BearList/List.h>
+#if __has_include("List.h")
+	#define BearListHasInclude
+	#include <BearList/List.h>
+#else
+	#include <vector>
+#endif
 
 namespace Bear
 {
-	static Bear::List<Window*> windows;
+	#ifdef BearListHasInclude
+		static Bear::List<Window*> windows;
+	#else
+		static std::vector<Window*> windows;
+	#endif
 
 	Window::Vector::Vector()
 		:x(0), y(0)
@@ -18,11 +27,19 @@ namespace Bear
 
 	Window* SearchWindow(const HWND& instance)
 	{
+		#ifdef BearListHasInclude
 		for (Bear::ListUInt i = 0; i < windows.Count(); i++)
 		{
 			if (instance == windows[i]->GetAttachment())
 				return windows[i];
 		}
+		#else
+		for (uint32_t i = 0; i < windows.size(); i++)
+		{
+			if (instance == windows[i]->GetAttachment())
+				return windows[i];
+		}
+		#endif
 
 		return nullptr;
 	}
@@ -204,7 +221,11 @@ namespace Bear
 		this->SetState(WindowState);
 		UpdateWindow(this->attachment);
 
+		#ifdef ListHasInclude
 		windows.Add(this);
+		#else
+		windows.push_back(this);
+		#endif
 
 		if (Parent)
 			SetParent(this->attachment, Parent->attachment);
@@ -244,7 +265,11 @@ namespace Bear
 		this->SetState(WindowState);
 		UpdateWindow(this->attachment);
 
+		#ifdef BearListHasInclude
 		windows.Add(this);
+		#else
+		windows.push_back(this);
+		#endif
 
 		if (Parent)
 			SetParent(this->attachment, Parent->attachment);
@@ -256,8 +281,13 @@ namespace Bear
 
 	Window::~Window()
 	{
-		if(windows.Data())
+		#ifdef BearListHasInclude
+		if (windows.Data())
 			windows.Remove(this);
+		#else
+		if (windows.data())
+			windows.erase(std::find(windows.begin(), windows.end(), this));
+		#endif
 	}
 
 	const HWND Window::GetAttachment() const
