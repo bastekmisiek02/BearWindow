@@ -1,6 +1,6 @@
 #include "BearWindow/Window.h"
 
-#if __has_include("List.h")
+#if __has_include("List.h") || __has_include("BearList/List.h")
 	#define BearListHasInclude
 	#include <BearList/List.h>
 #else
@@ -221,7 +221,7 @@ namespace Bear
 		this->SetState(WindowState);
 		UpdateWindow(this->attachment);
 
-		#ifdef ListHasInclude
+		#ifdef BearListHasInclude
 		windows.Add(this);
 		#else
 		windows.push_back(this);
