@@ -136,17 +136,33 @@ namespace Bear
 
 		enum class State
 		{
-			Restored = 1, Minimized = 2, Maximized = 3, FullScreen = 4
+			Restored = 1, 
+			Minimized = 2, 
+			Maximized = 3, 
+			FullScreen = 4
 		};
 
 		enum class PointerType
 		{
-			Arrow = 32512, Crosshair = 32515, Hand = 32649, Help = 32651, IBeam = 32513, Blocked = 32648, Move = 32646, SizeNESW = 32643, SizeNS = 32645, SizeNWSE = 32642, SizeWE = 32644, UpArrow = 32516, Wait = 32514
+			Arrow = 32512, 
+			Crosshair = 32515, 
+			Hand = 32649, 
+			Help = 32651, 
+			IBeam = 32513, 
+			Blocked = 32648, 
+			Move = 32646, 
+			SizeNESW = 32643, 
+			SizeNS = 32645, 
+			SizeNWSE = 32642, 
+			SizeWE = 32644, 
+			UpArrow = 32516, 
+			Wait = 32514
 		};
 
 		enum class Style : BearWindowUInt
 		{
-			Normal = 282001408, PopUp = 2415919104
+			Normal = 282001408, 
+			PopUp = 2415919104
 		};
 	private:
 		Style style;
@@ -159,8 +175,8 @@ namespace Bear
 			Vector(const int& x, const int& y);
 		};
 	public:
-		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle);
-		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle);
+		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType = PointerType::Arrow, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr, const wchar_t* PathToTaskBarImage = nullptr, const wchar_t* PathToImage = nullptr, const State& WindowState = State::Restored, const Style& WindowStyle = Style::Normal);
+		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr, const wchar_t* PathToTaskBarImage = nullptr, const wchar_t* PathToImage = nullptr, const State& WindowState = State::Restored, const Style& WindowStyle = Style::Normal);
 		~Window();
 	public:
 		typedef void(*OnUpdate)(const Window* window);
@@ -199,6 +215,9 @@ namespace Bear
 
 		const State GetState() const;
 		void SetState(const State& NewState);
+	public:
+		void SetCursor(const PointerType& type);
+		void SetCursor(const wchar_t* pointerFileName);
 	public:
 		void Update() const;
 	public:

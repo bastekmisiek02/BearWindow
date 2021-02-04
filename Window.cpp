@@ -10,7 +10,7 @@
 namespace Bear
 {
 	#ifdef BearListHasInclude
-		static Bear::List<Window*> windows;
+		static Bear::DynamicArray<Window*> windows;
 	#else
 		static std::vector<Window*> windows;
 	#endif
@@ -28,7 +28,7 @@ namespace Bear
 	Window* SearchWindow(const HWND& instance)
 	{
 		#ifdef BearListHasInclude
-		for (Bear::ListUInt i = 0; i < windows.Count(); i++)
+		for (Bear::DynamicArrayUInt i = 0; i < windows.Count(); i++)
 		{
 			if (instance == windows[i]->GetAttachment())
 				return windows[i];
@@ -359,6 +359,16 @@ namespace Bear
 			SetWindowLong(attachment, GWL_STYLE, (LONG)style);
 			ShowWindow(this->attachment, (int)NewState);
 		}
+	}
+
+	void Window::SetCursor(const PointerType& type)
+	{
+		::SetCursor(LoadCursor(nullptr, MAKEINTRESOURCE(type)));
+	}
+
+	void Window::SetCursor(const wchar_t* pointerFileName)
+	{
+		::SetCursor(LoadCursorFromFile(pointerFileName));
 	}
 
 	void Window::Update() const
