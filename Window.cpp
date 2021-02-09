@@ -1,7 +1,7 @@
 #include "BearWindow/Window.h"
 
 #if __has_include("List.h") || __has_include("BearList/List.h")
-	#define BearListHasInclude
+	#define BearDynamicArrayHasInclude
 	#include <BearList/List.h>
 #else
 	#include <vector>
@@ -9,7 +9,7 @@
 
 namespace Bear
 {
-	#ifdef BearListHasInclude
+	#ifdef BearDynamicArrayHasInclude
 		static Bear::DynamicArray<Window*> windows;
 	#else
 		static std::vector<Window*> windows;
@@ -27,7 +27,7 @@ namespace Bear
 
 	Window* SearchWindow(const HWND& instance)
 	{
-		#ifdef BearListHasInclude
+		#ifdef BearDynamicArrayHasInclude
 		for (Bear::DynamicArrayUInt i = 0; i < windows.Count(); i++)
 		{
 			if (instance == windows[i]->GetAttachment())
@@ -178,9 +178,20 @@ namespace Bear
 				{
 					if (window->OnDestroyCallback)
 						window->OnDestroyCallback(window);
+
+					window->destroyed = true;
 				}
 
-				PostQuitMessage(0);
+				bool&& quit = true;
+
+				for (const auto& window : windows)
+				{
+					if (!window->destroyed)
+						quit = false;
+				}
+
+				if(quit)
+					PostQuitMessage(0);
 
 				break;
 			}
@@ -192,7 +203,7 @@ namespace Bear
 	}
 
 	Window::Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle)
-		: style(WindowStyle)
+		: style(WindowStyle), destroyed(false)
 	{
 		const wchar_t* className = !ClassName ? Title : ClassName;
 
@@ -221,7 +232,7 @@ namespace Bear
 		this->SetState(WindowState);
 		UpdateWindow(this->attachment);
 
-		#ifdef BearListHasInclude
+		#ifdef BearDynamicArrayHasInclude
 		windows.Add(this);
 		#else
 		windows.push_back(this);
@@ -236,7 +247,7 @@ namespace Bear
 	}
 
 	Window::Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle)
-		: style(WindowStyle)
+		: style(WindowStyle), destroyed(false)
 	{
 		const wchar_t* className = !ClassName ? Title : ClassName;
 
@@ -265,7 +276,7 @@ namespace Bear
 		this->SetState(WindowState);
 		UpdateWindow(this->attachment);
 
-		#ifdef BearListHasInclude
+		#ifdef BearDynamicArrayHasInclude
 		windows.Add(this);
 		#else
 		windows.push_back(this);
@@ -281,7 +292,9 @@ namespace Bear
 
 	Window::~Window()
 	{
-		#ifdef BearListHasInclude
+		destroyed = true;
+
+		#ifdef BearDynamicArrayHasInclude
 		if (windows.Data())
 			windows.Remove(this);
 		#else

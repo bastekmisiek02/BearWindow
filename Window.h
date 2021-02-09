@@ -165,7 +165,10 @@ namespace Bear
 			PopUp = 2415919104
 		};
 	private:
+		friend LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam);
+	private:
 		Style style;
+		bool destroyed;
 	public:
 		struct Vector
 		{
