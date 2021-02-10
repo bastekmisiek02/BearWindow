@@ -1,8 +1,8 @@
 #include "BearWindow/Window.h"
 
-#if __has_include("List.h") || __has_include("BearList/List.h")
+#if __has_include("DynamicArray.h") || __has_include("BearDynamicArray/DynamicArray.h")
 	#define BearDynamicArrayHasInclude
-	#include <BearList/List.h>
+	#include <BearDynamicArray/DynamicArray.h>
 #else
 	#include <vector>
 #endif
