@@ -1,8 +1,8 @@
 #include "BearWindow/Window.h"
 
-#if __has_include("DynamicArray.h") || __has_include("BearDynamicArray/DynamicArray.h")
+#if __has_include("DynamicArray.h")
 	#define BearDynamicArrayHasInclude
-	#include <BearDynamicArray/DynamicArray.h>
+	#include <DynamicArray.h>
 #else
 	#include <vector>
 #endif
@@ -44,7 +44,7 @@ namespace Bear
 		return nullptr;
 	}
 
-	LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam)
+	static LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam)
 	{
 		switch (msg)
 		{
@@ -384,6 +384,31 @@ namespace Bear
 		::SetCursor(LoadCursorFromFile(pointerFileName));
 	}
 
+	const Window::Vector Window::GetMousePosition() const
+	{
+		POINT point;
+		GetCursorPos(&point);
+		
+		int&& x = point.x - this->GetPosition().x;
+		int&& y = point.y - this->GetPosition().y;
+
+		if (x < 0 || (y < 0))
+		{
+			x = -1;
+			y = -1;
+		}
+
+		const Vector&& size = this->GetSize();
+
+		if (x >= size.x || y >= size.y)
+		{
+			x = -1;
+			y = -1;
+		}
+
+		return { x, y };
+	}
+
 	void Window::Update() const
 	{
 		MSG msg{};
@@ -398,5 +423,10 @@ namespace Bear
 	const Window::Vector Window::GetMonitorResolution()
 	{
 		return { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
+	}
+
+	const bool Window::IsKeyDown(const char& key)
+	{
+		return GetAsyncKeyState(key);
 	}
 }

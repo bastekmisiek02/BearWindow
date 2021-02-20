@@ -165,7 +165,7 @@ namespace Bear
 			PopUp = 2415919104
 		};
 	private:
-		friend LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam);
+		static friend LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam);
 	private:
 		Style style;
 		bool destroyed;
@@ -222,8 +222,11 @@ namespace Bear
 		void SetCursor(const PointerType& type);
 		void SetCursor(const wchar_t* pointerFileName);
 	public:
+		const Vector GetMousePosition() const;
+	public:
 		void Update() const;
 	public:
 		static const Vector GetMonitorResolution();
+		static const bool IsKeyDown(const char& key);
 	};
 }
