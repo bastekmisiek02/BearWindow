@@ -222,6 +222,7 @@ namespace Bear
 		void SetCursor(const PointerType& type);
 		void SetCursor(const wchar_t* pointerFileName);
 	public:
+		void SetMousePosition(const Vector& newPosition);
 		const Vector GetMousePosition() const;
 	public:
 		void Update() const;

@@ -384,10 +384,20 @@ namespace Bear
 		::SetCursor(LoadCursorFromFile(pointerFileName));
 	}
 
+	void Window::SetMousePosition(const Vector& newPosition)
+	{
+		if (GetActiveWindow() == attachment)
+		{
+			const Vector&& position = GetPosition();
+
+			SetPhysicalCursorPos(position.x + newPosition.x, position.y + newPosition.y);
+		}
+	}
+
 	const Window::Vector Window::GetMousePosition() const
 	{
 		POINT point;
-		GetCursorPos(&point);
+		GetPhysicalCursorPos(&point);
 		
 		int&& x = point.x - this->GetPosition().x;
 		int&& y = point.y - this->GetPosition().y;
