@@ -202,34 +202,34 @@ namespace Bear
 		return 0;
 	}
 
-	Window::Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle)
-		: style(WindowStyle), destroyed(false)
+	Window::Window(const Vector& size, const Vector& position, const wchar_t* title, const PointerType& pointerType, const Window* parent, const wchar_t* className, const wchar_t* pathToTaskBarImage, const wchar_t* pathToImage, const State& windowState, const Style& windowStyle)
+		: style(windowStyle), destroyed(false)
 	{
-		const wchar_t* className = !ClassName ? Title : ClassName;
+		const wchar_t* nameClass = !className ? title : className;
 
 		WNDCLASSEX wc{};
 		wc.cbClsExtra = 0;
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.cbWndExtra = 0;
 		wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-		wc.hCursor = LoadCursor(nullptr, MAKEINTRESOURCE(PointerType));
-		wc.hIcon = PathToTaskBarImage ? (HICON)LoadImage(nullptr, PathToTaskBarImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
-		wc.hIconSm = PathToImage ? (HICON)LoadImage(nullptr, PathToImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
+		wc.hCursor = LoadCursor(nullptr, MAKEINTRESOURCE(pointerType));
+		wc.hIcon = pathToTaskBarImage ? (HICON)LoadImage(nullptr, pathToTaskBarImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
+		wc.hIconSm = pathToImage ? (HICON)LoadImage(nullptr, pathToImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
 		wc.hInstance = nullptr;
 		wc.lpfnWndProc = WinProc;
-		wc.lpszClassName = className;
+		wc.lpszClassName = nameClass;
 		wc.lpszMenuName = nullptr;
 		wc.style = 0;
 
 		if (!RegisterClassEx(&wc))
 			return;
 
-		this->attachment = CreateWindowEx(0, className, Title, (DWORD)WindowStyle, Position.x, Position.y, Size.x, Size.y, nullptr, nullptr, nullptr, nullptr);
+		this->attachment = CreateWindowEx(0, nameClass, title, (DWORD)windowStyle, position.x, position.y, size.x, size.y, nullptr, nullptr, nullptr, nullptr);
 
 		if (!this->attachment)
 			return;
 
-		this->SetState(WindowState);
+		this->SetState(windowState);
 		UpdateWindow(this->attachment);
 
 		#ifdef BearDynamicArrayHasInclude
@@ -238,42 +238,42 @@ namespace Bear
 		windows.push_back(this);
 		#endif
 
-		if (Parent)
-			SetParent(this->attachment, Parent->attachment);
+		if (parent)
+			SetParent(this->attachment, parent->attachment);
 
-		this->title = (wchar_t*)Title;
+		this->title = (wchar_t*)title;
 
-		UnregisterClass(className, GetModuleHandle(nullptr));
+		UnregisterClass(nameClass, GetModuleHandle(nullptr));
 	}
 
-	Window::Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName, const Window* Parent, const wchar_t* ClassName, const wchar_t* PathToTaskBarImage, const wchar_t* PathToImage, const State& WindowState, const Style& WindowStyle)
-		: style(WindowStyle), destroyed(false)
+	Window::Window(const Vector& size, const Vector& position, const wchar_t* title, const wchar_t* pointerFileName, const Window* parent, const wchar_t* className, const wchar_t* pathToTaskBarImage, const wchar_t* pathToImage, const State& windowState, const Style& windowStyle)
+		: style(windowStyle), destroyed(false)
 	{
-		const wchar_t* className = !ClassName ? Title : ClassName;
+		const wchar_t* nameClass = !className ? title : className;
 
 		WNDCLASSEX wc{};
 		wc.cbClsExtra = 0;
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.cbWndExtra = 0;
 		wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-		wc.hCursor = (HCURSOR)LoadCursorFromFile(PointerFileName);
-		wc.hIcon = PathToTaskBarImage ? (HICON)LoadImage(nullptr, PathToTaskBarImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
-		wc.hIconSm = PathToImage ? (HICON)LoadImage(nullptr, PathToImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
+		wc.hCursor = (HCURSOR)LoadCursorFromFile(pointerFileName);
+		wc.hIcon = pathToTaskBarImage ? (HICON)LoadImage(nullptr, pathToTaskBarImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
+		wc.hIconSm = pathToImage ? (HICON)LoadImage(nullptr, pathToImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
 		wc.hInstance = nullptr;
 		wc.lpfnWndProc = WinProc;
-		wc.lpszClassName = className;
+		wc.lpszClassName = nameClass;
 		wc.lpszMenuName = nullptr;
 		wc.style = 0;
 
 		if (!RegisterClassEx(&wc))
 			return;
 		
-		this->attachment = CreateWindowEx(0, className, Title, (DWORD)WindowStyle, Position.x, Position.y, Size.x, Size.y, nullptr, nullptr, nullptr, nullptr);
+		this->attachment = CreateWindowEx(0, nameClass, title, (DWORD)windowStyle, position.x, position.y, size.x, size.y, nullptr, nullptr, nullptr, nullptr);
 
 		if (!this->attachment)
 			return;
 
-		this->SetState(WindowState);
+		this->SetState(windowState);
 		UpdateWindow(this->attachment);
 
 		#ifdef BearDynamicArrayHasInclude
@@ -282,12 +282,12 @@ namespace Bear
 		windows.push_back(this);
 		#endif
 
-		if (Parent)
-			SetParent(this->attachment, Parent->attachment);
+		if (parent)
+			SetParent(this->attachment, parent->attachment);
 
-		this->title = (wchar_t*)Title;
+		this->title = (wchar_t*)title;
 
-		UnregisterClass(className, GetModuleHandle(nullptr));
+		UnregisterClass(nameClass, GetModuleHandle(nullptr));
 	}
 
 	Window::~Window()
@@ -318,10 +318,10 @@ namespace Bear
 		return title;
 	}
 
-	void Window::SetTitle(const wchar_t* NewTitle)
+	void Window::SetTitle(const wchar_t* newTitle)
 	{
-		SetWindowText(attachment, NewTitle);
-		title = (wchar_t*)NewTitle;
+		SetWindowText(attachment, newTitle);
+		title = (wchar_t*)newTitle;
 	}
 
 	const Window::Vector Window::GetSize() const
@@ -332,9 +332,9 @@ namespace Bear
 		return { point.right, point.bottom };
 	}
 
-	void Window::SetSize(const Vector& NewSize)
+	void Window::SetSize(const Vector& newSize)
 	{
-		SetWindowPos(attachment, nullptr, 0, 0, NewSize.x, NewSize.y, SWP_NOMOVE);
+		SetWindowPos(attachment, nullptr, 0, 0, newSize.x, newSize.y, SWP_NOMOVE);
 	}
 
 	const Window::Vector Window::GetPosition() const
@@ -345,9 +345,9 @@ namespace Bear
 		return { point.left + 8, point.top + 31 };
 	}
 
-	void Window::SetPosition(const Vector& NewPosition)
+	void Window::SetPosition(const Vector& newPosition)
 	{
-		SetWindowPos(attachment, nullptr, NewPosition.x, NewPosition.y, 0, 0, SWP_NOSIZE);
+		SetWindowPos(attachment, nullptr, newPosition.x, newPosition.y, 0, 0, SWP_NOSIZE);
 	}
 
 	const Window::State Window::GetState() const
@@ -360,9 +360,9 @@ namespace Bear
 		return (Window::State)windowState.showCmd;
 	}
 
-	void Window::SetState(const State& NewState)
+	void Window::SetState(const State& newState)
 	{
-		if (NewState == State::FullScreen)
+		if (newState == State::FullScreen)
 		{
 			SetWindowLong(attachment, GWL_STYLE, WS_VISIBLE);
 			ShowWindow(this->attachment, (int)State::Maximized);
@@ -370,7 +370,7 @@ namespace Bear
 		else
 		{	
 			SetWindowLong(attachment, GWL_STYLE, (LONG)style);
-			ShowWindow(this->attachment, (int)NewState);
+			ShowWindow(this->attachment, (int)newState);
 		}
 	}
 
@@ -437,6 +437,25 @@ namespace Bear
 
 	const bool Window::IsKeyDown(const char& key)
 	{
-		return GetAsyncKeyState(key);
+		if(GetActiveWindow() == attachment)
+			return GetAsyncKeyState(key);
+
+		return false;
+	}
+
+	void Window::LockMousePosition(const Vector& position, const Vector& size)
+	{
+		const Vector& windowPosition = GetPosition();
+		const Vector& windowSize = GetSize();
+
+		RECT rect{ position.x + windowPosition.x, position.y + windowPosition.y, position.x + windowPosition.x + size.x, position.y + windowPosition.y + size.y };
+
+		if (rect.right > windowPosition.x + windowSize.x)
+			rect.right = windowPosition.x + windowSize.x;
+
+		if (rect.bottom > windowPosition.y + windowSize.y)
+			rect.bottom = windowPosition.y + windowSize.y;
+
+		ClipCursor(&rect);
 	}
 }

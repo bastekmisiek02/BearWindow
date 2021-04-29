@@ -178,8 +178,8 @@ namespace Bear
 			Vector(const int& x, const int& y);
 		};
 	public:
-		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const PointerType& PointerType = PointerType::Arrow, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr, const wchar_t* PathToTaskBarImage = nullptr, const wchar_t* PathToImage = nullptr, const State& WindowState = State::Restored, const Style& WindowStyle = Style::Normal);
-		Window(const Vector& Size, const Vector& Position, const wchar_t* Title, const wchar_t* PointerFileName = nullptr, const Window* Parent = nullptr, const wchar_t* ClassName = nullptr, const wchar_t* PathToTaskBarImage = nullptr, const wchar_t* PathToImage = nullptr, const State& WindowState = State::Restored, const Style& WindowStyle = Style::Normal);
+		Window(const Vector& size, const Vector& position, const wchar_t* title, const PointerType& pointerType = PointerType::Arrow, const Window* parent = nullptr, const wchar_t* className = nullptr, const wchar_t* pathToTaskBarImage = nullptr, const wchar_t* pathToImage = nullptr, const State& windowState = State::Restored, const Style& windowStyle = Style::Normal);
+		Window(const Vector& size, const Vector& position, const wchar_t* title, const wchar_t* pointerFileName = nullptr, const Window* parent = nullptr, const wchar_t* className = nullptr, const wchar_t* pathToTaskBarImage = nullptr, const wchar_t* pathToImage = nullptr, const State& windowState = State::Restored, const Style& windowStyle = Style::Normal);
 		~Window();
 	public:
 		typedef void(*OnUpdate)(const Window* window);
@@ -208,26 +208,29 @@ namespace Bear
 		#endif
 
 		const wchar_t* GetTitle() const;
-		void SetTitle(const wchar_t* NewTitle);
+		void SetTitle(const wchar_t* newTitle);
 
 		const Vector GetSize() const;
-		void SetSize(const Vector& NewSize);
+		void SetSize(const Vector& newSize);
 
 		const Vector GetPosition() const;
-		void SetPosition(const Vector& NewPosition);
+		void SetPosition(const Vector& newPosition);
 
 		const State GetState() const;
-		void SetState(const State& NewState);
+		void SetState(const State& newState);
 	public:
 		void SetCursor(const PointerType& type);
 		void SetCursor(const wchar_t* pointerFileName);
 	public:
 		void SetMousePosition(const Vector& newPosition);
 		const Vector GetMousePosition() const;
+
+		const bool IsKeyDown(const char& key);
+
+		void LockMousePosition(const Vector& position, const Vector& size);
 	public:
 		void Update() const;
 	public:
 		static const Vector GetMonitorResolution();
-		static const bool IsKeyDown(const char& key);
 	};
 }
