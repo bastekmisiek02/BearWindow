@@ -212,7 +212,7 @@ namespace Bear
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.cbWndExtra = 0;
 		wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-		wc.hCursor = LoadCursor(nullptr, MAKEINTRESOURCE(pointerType));
+		wc.hCursor = LoadCursor(nullptr, MAKEINTRESOURCE(pointerType));;
 		wc.hIcon = pathToTaskBarImage ? (HICON)LoadImage(nullptr, pathToTaskBarImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
 		wc.hIconSm = pathToImage ? (HICON)LoadImage(nullptr, pathToImage, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED) : LoadIcon(nullptr, IDI_APPLICATION);
 		wc.hInstance = nullptr;
@@ -435,7 +435,7 @@ namespace Bear
 		return { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
 	}
 
-	const bool Window::IsKeyDown(const char& key)
+	const bool Window::IsKeyDown(const char& key) const
 	{
 		if(GetActiveWindow() == attachment)
 			return GetAsyncKeyState(key);
@@ -443,7 +443,7 @@ namespace Bear
 		return false;
 	}
 
-	void Window::LockMousePosition(const Vector& position, const Vector& size)
+	void Window::LockMousePosition(const Vector& position, const Vector& size) const
 	{
 		const Vector& windowPosition = GetPosition();
 		const Vector& windowSize = GetSize();

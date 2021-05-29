@@ -164,6 +164,12 @@ namespace Bear
 			Normal = 282001408, 
 			PopUp = 2415919104
 		};
+
+		enum class CursorState
+		{
+			Hide = 0,
+			Visible = 1
+		};
 	private:
 		static friend LRESULT WinProc(HWND instance, UINT msg, WPARAM firstParam, LPARAM secondParam);
 	private:
@@ -225,9 +231,9 @@ namespace Bear
 		void SetMousePosition(const Vector& newPosition);
 		const Vector GetMousePosition() const;
 
-		const bool IsKeyDown(const char& key);
+		const bool IsKeyDown(const char& key) const;
 
-		void LockMousePosition(const Vector& position, const Vector& size);
+		void LockMousePosition(const Vector& position, const Vector& size) const;
 	public:
 		void Update() const;
 	public:
